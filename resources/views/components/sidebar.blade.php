@@ -23,26 +23,73 @@
              </li>
          @endrole
 
-         <li class="nav-title text-black">EMPLOYEES</li>
-         <li class="nav-group" aria-expanded="false">
-             <a class="nav-link nav-group-toggle text-black" href="#">
+         <li class="nav-title text-black">MASTER DATA</li>
+         <li class="nav-item">
+             <a class="nav-link text-black" href="{{ route('regions.index') }}">
                  <svg class="nav-icon text-black">
-                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
-                 </svg> Master Data</a>
-             <ul class="nav-group-items" style="height: 0px;">
-                 <li class="nav-item">
-                     <a class="nav-link text-black" href="base/accordion.html">
-                         <span class="nav-icon text-black"></span>
-                         Office Boy</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link text-black" href="base/breadcrumb.html"><span
-                             class="nav-icon text-black"></span>
-                         Security</a>
-                 </li>
+                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+                 </svg> REGION</a>
+         </li>
+         <li class="nav-item">
+             <a class="nav-link text-black" href="{{ route('branch.index') }}">
+                 <svg class="nav-icon text-black">
+                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+                 </svg> BRANCH</a>
+         </li>
+         <li class="nav-item">
+             <a class="nav-link text-black" href="{{ route('vendorss.index') }}">
+                 <svg class="nav-icon text-black">
+                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+                 </svg> VENDOR</a>
+         </li>
+
+         <li class="nav-title text-black">EMPLOYEES</li>
+         {{-- <li class="nav-item">
+             <a class="nav-link text-black" href="{{ route('employee.index') }}">
+                 <svg class="nav-icon text-black">
+                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+                 </svg> Biodata</a>
+         </li>
+         <li class="nav-item">
+             <a class="nav-link text-black" href="{{ route('employee.index') }}">
+                 <svg class="nav-icon text-black">
+                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+                 </svg> Payrol</a>
+         </li> --}}
+         <li class="nav-group show" aria-expanded="true"><a class="nav-link nav-group-toggle" href="#">
+                 <svg class="nav-icon">
+                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-cursor"></use>
+                 </svg> Biodata</a>
+             <ul class="nav-group-items" style="height: auto;">
+                 <li class="nav-item"><a class="nav-link" href="buttons/buttons.html"><span class="nav-icon"></span>
+                         OB</a></li>
+                 <li class="nav-item"><a class="nav-link" href="buttons/button-group.html"><span
+                             class="nav-icon"></span> Security</a></li>
 
              </ul>
          </li>
+
+         <li class="nav-group show" aria-expanded="true"><a class="nav-link nav-group-toggle" href="#">
+                 <svg class="nav-icon">
+                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-cursor"></use>
+                 </svg> Payroll</a>
+             <ul class="nav-group-items" style="height: auto;">
+                 <li class="nav-item"><a class="nav-link" href="buttons/buttons.html"><span class="nav-icon"></span>
+                         OB</a></li>
+                 <li class="nav-item"><a class="nav-link" href="buttons/button-group.html"><span
+                             class="nav-icon"></span> Security</a></li>
+
+             </ul>
+         </li>
+
+         <li class="nav-title text-black">REPORT</li>
+         <li class="nav-item">
+             <a class="nav-link text-black" href="{{ route('users.index') }}">
+                 <svg class="nav-icon text-black">
+                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+                 </svg> REPORT</a>
+         </li>
+
 
      </ul>
  </div>

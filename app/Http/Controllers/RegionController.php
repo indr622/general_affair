@@ -8,59 +8,44 @@ use App\Http\Requests\UpdateRegionRequest;
 
 class RegionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $regions = Region::all();
+        return view('regions.index', compact('regions'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        return view('regions.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreRegionRequest $request)
     {
-        //
+        Region::create($request->validated());
+        return redirect()->route('regions.index')->withSuccess('Region berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Region $region)
+
+
+    public function edit(Region $regions)
     {
-        //
+        return view('regions.edit', compact('regions'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Region $region)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateRegionRequest $request, Region $region)
     {
-        //
+        $region->update($request->validated());
+        return redirect()->route('regions.index')->withSuccess('Region berhasil diupdate.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Region $region)
     {
-        //
+        $region->delete();
+        return redirect()->route('regions.index')->withSuccess('Region berhasil dihapus.');
     }
 }
