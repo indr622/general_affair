@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 50);
+            $table->string('code', 6)->unique();
+            $table->string('description', 100)->nullable();
+            $table->foreignId('region_id')->constrained('regions');
             $table->timestamps();
         });
     }

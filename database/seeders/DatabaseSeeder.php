@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             RegionSeeder::class,
             UserSeeder::class,
             VendorSeeder::class,
+            BranchSeeder::class,
+            EmployeeSeeder::class,
         ]);
     }
 }

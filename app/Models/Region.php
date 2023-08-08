@@ -15,4 +15,9 @@ class Region extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
+    }
 }

@@ -40,27 +40,35 @@
          </li>
 
          <li class="nav-title text-black">Employee</li>
-         <li class="nav-group " aria-expanded="true"><a class="nav-link nav-group-toggle" href="#">
-                 <i class="nav-icon fas fa-address-book">
+         <li class="nav-group " aria-expanded="true"><a class="nav-link nav-group-toggle text-black" href="#">
+                 <i class="nav-icon fas fa-address-book text-black">
                  </i> Biodata</a>
              <ul class="nav-group-items" style="height: auto;">
-                 <li class="nav-item"><a class="nav-link" href="buttons/buttons.html"><span class="nav-icon"></span>
-                         OB</a></li>
-                 <li class="nav-item"><a class="nav-link" href="buttons/button-group.html"><span
-                             class="nav-icon"></span> Security</a></li>
+                 <li class="nav-item">
+                     <a class="nav-link text-black" href="buttons/buttons.html"><span class="nav-icon"></span>
+                         Office Boy</a>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link text-black" href="buttons/button-group.html"><span class="nav-icon"></span>
+                         Security</a>
+                 </li>
 
              </ul>
          </li>
 
-         <li class="nav-group " aria-expanded="true"><a class="nav-link nav-group-toggle" href="#">
-                 <i class="nav-icon fas fa-money">
+         <li class="nav-group" aria-expanded="true"><a class="nav-link nav-group-toggle text-black" href="#">
+                 <i class="nav-icon fas fa-hand-holding-usd text-black"></i>
 
                  </i> Payroll</a>
              <ul class="nav-group-items" style="height: auto;">
-                 <li class="nav-item"><a class="nav-link" href="buttons/buttons.html"><span class="nav-icon"></span>
-                         Office Boy</a></li>
-                 <li class="nav-item"><a class="nav-link" href="buttons/button-group.html"><span
-                             class="nav-icon"></span> Security</a></li>
+                 <li class="nav-item">
+                     <a class="nav-link text-black" href="buttons/buttons.html"><span class="nav-icon"></span>
+                         Office Boy</a>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link text-black" href="buttons/button-group.html"><span class="nav-icon"></span>
+                         Security</a>
+                 </li>
 
              </ul>
          </li>
@@ -75,8 +83,10 @@
 
          <hr>
          <li class="nav-item">
-             <a class="nav-link text-black" href="{{ route('users.index') }}">
-                 <i class="nav-icon text-black fas fa-sign-in-alt">
+             <a class="nav-link text-black" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                 <i class="nav-icon text-black
+                 fas fa-sign-in-alt">
                  </i> Logout</a>
          </li>
 
