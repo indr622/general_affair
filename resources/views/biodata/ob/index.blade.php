@@ -101,6 +101,7 @@
                                 <th>Tanggal Masuk / Keluar</th>
                                 <th>Vendor</th>
                                 <th>Branch</th>
+                                <th>Region</th>
                             </thead>
                             <tbody>
                                 @foreach ($employee as $data => $value)
@@ -113,6 +114,7 @@
                                         <td>{{ $value->tgl_masuk . ' / ' . ($value->tgl_keluar ?? '-') }}</td>
                                         <td>{{ $value->vendor->name }}</td>
                                         <td>{{ $value->branch->name }}</td>
+                                        <td>{{ $value->branch->region->name }}</td>
                                     </tr>
                                 @endforeach
 

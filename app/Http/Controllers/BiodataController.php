@@ -8,7 +8,9 @@ use App\Exports\Biodata;
 use App\Models\Employee;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Imports\EmployeeImport;
+use App\Models\Branch;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -19,7 +21,7 @@ class BiodataController extends Controller
 
         $vendor = Vendor::all();
         $region = Region::all();
-        $employee = Employee::with('branch', 'vendor')
+        $employee = Employee::with('branch', 'vendor', 'branch.region')
             ->where('jabatan', 'ob')->get();
 
         return view('biodata.ob.index', compact('employee', 'vendor', 'region'));
@@ -58,24 +60,26 @@ class BiodataController extends Controller
             array_push($employe, $value);
         }
 
+        $vendor = Vendor::where('description', 'like', '%' . $employe[1][0] . '%')->first();
         $slicedArray = array_slice($employe, 6);
         DB::beginTransaction();
         try {
             foreach ($slicedArray as $key => $value) {
+
                 Employee::updateOrCreate(
                     [
                         'nik' => $value[8]
                     ],
                     [
-                        'branch_id' => 1,
-                        'vendor_id' => 1,
+                        'branch_id' => Branch::where('code', $value[2])->first()->id,
+                        'vendor_id' =>  $vendor->id,
                         'nik' => $value[8],
-                        'name' => $value[6],
+                        'name' => Str::upper($value[6]),
                         'jabatan' => Str::lower($value[7]),
-                        'jenis_kelamin' => $value[10],
-                        'tgl_masuk' => $value[4],
-                        'tgl_keluar' => $value[5] == '-' ? null : $value[5],
-                        'tgl_lahir' => $value[9],
+                        'jenis_kelamin' => Str::upper($value[10]),
+                        'tgl_masuk' => Carbon::createFromDate(1900, 1, 1)->addDays($value[4] - 2)->format('Y-m-d'),
+                        'tgl_keluar' => $value[5] == '-' ? null : Carbon::createFromDate(1900, 1, 1)->addDays($value[5] - 2)->format('Y-m-d'),
+                        'tgl_lahir' => Carbon::createFromDate(1900, 1, 1)->addDays($value[9] - 2)->format('Y-m-d'),
                     ]
                 );
             }
