@@ -24,7 +24,18 @@ class EmployeeSeeder extends Seeder
             'tgl_masuk' => '2011-01-01',
             'tgl_keluar' => null,
             'tgl_lahir' => '1991-11-10',
+        ]);
 
+        Employee::create([
+            'branch_id' => 1,
+            'vendor_id' => 2,
+            'nik' => '003.21.01.B0035',
+            'name' => 'HARI',
+            'jabatan' => 'security',
+            'jenis_kelamin' => 'L',
+            'tgl_masuk' => '2011-01-01',
+            'tgl_keluar' => null,
+            'tgl_lahir' => '1979-12-04',
         ]);
     }
 }

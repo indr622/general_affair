@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('vendor_id')->constrained('vendors');
             $table->string('nik', 20)->unique();
             $table->string('name', 100);
-            $table->enum('jabatan', ['ob', 'scurity']);
+            $table->enum('jabatan', ['ob', 'security']);
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->date('tgl_masuk');
             $table->date('tgl_keluar')->nullable();

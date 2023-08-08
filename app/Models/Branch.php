@@ -15,4 +15,9 @@ class Branch extends Model
     {
         return $this->belongsTo(Region::class);
     }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

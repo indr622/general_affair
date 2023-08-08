@@ -40,16 +40,16 @@
          </li>
 
          <li class="nav-title text-black">Employee</li>
-         <li class="nav-group " aria-expanded="true"><a class="nav-link nav-group-toggle text-black" href="#">
+         <li class="nav-group" aria-expanded="true"><a class="nav-link nav-group-toggle text-black" href="#">
                  <i class="nav-icon fas fa-address-book text-black">
                  </i> Biodata</a>
              <ul class="nav-group-items" style="height: auto;">
                  <li class="nav-item">
-                     <a class="nav-link text-black" href="buttons/buttons.html"><span class="nav-icon"></span>
+                     <a class="nav-link text-black" href="{{ route('bio.ob') }}"><span class="nav-icon"></span>
                          Office Boy</a>
                  </li>
                  <li class="nav-item">
-                     <a class="nav-link text-black" href="buttons/button-group.html"><span class="nav-icon"></span>
+                     <a class="nav-link text-black" href="{{ route('bio.security') }}"><span class="nav-icon"></span>
                          Security</a>
                  </li>
 
@@ -62,7 +62,7 @@
                  </i> Payroll</a>
              <ul class="nav-group-items" style="height: auto;">
                  <li class="nav-item">
-                     <a class="nav-link text-black" href="buttons/buttons.html"><span class="nav-icon"></span>
+                     <a class="nav-link text-black" href="buttons/button-group.html"><span class="nav-icon"></span>
                          Office Boy</a>
                  </li>
                  <li class="nav-item">
@@ -76,9 +76,8 @@
          <li class="nav-title text-black">Report</li>
          <li class="nav-item">
              <a class="nav-link text-black" href="{{ route('users.index') }}">
-                 <svg class="nav-icon text-black">
-                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
-                 </svg> Report</a>
+                 <i class="nav-icon text-black fas fa-print">
+                 </i> Report</a>
          </li>
 
          <hr>

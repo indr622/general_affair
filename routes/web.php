@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\BranchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('penyedia', VendorController::class);
         Route::resource('branch', BranchController::class);
 
-        // Route::get('biodata/office-boy', [EmployeeController::class, 'office_boy'])->name('bio.ob');
-        // Route::get('biodata/security', [EmployeeController::class, 'security'])->name('bio.security');
+        Route::get('biodata/office-boy', [BiodataController::class, 'office_boy'])->name('bio.ob');
+        Route::get('biodata/security', [BiodataController::class, 'security'])->name('bio.security');
+        Route::post('biodata/download', [BiodataController::class, 'download'])->name('bio.download');
+        Route::post('biodata/upload', [BiodataController::class, 'upload'])->name('bio.upload');
     });
 });

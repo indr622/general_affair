@@ -27,7 +27,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $value->name }}</td>
                                         <td>0</td>
-                                        <td>0</td>
+                                        <td>{{ $value->employees->count() }}</td>
                                         </td>
 
                                         <td class="text-center">
