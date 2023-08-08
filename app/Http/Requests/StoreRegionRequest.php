@@ -26,4 +26,16 @@ class StoreRegionRequest extends FormRequest
             'code' => 'required|string|max:6|unique:regions',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama Region tidak boleh kosong',
+            'name.max' => 'Nama Region tidak boleh lebih dari 255 karakter',
+            'name.unique' => 'Nama Region sudah ada',
+            'code.required' => 'Kode Region tidak boleh kosong',
+            'code.max' => 'Kode Region tidak boleh lebih dari 6 karakter',
+            'code.unique' => 'Kode Region sudah ada',
+        ];
+    }
 }

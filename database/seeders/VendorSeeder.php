@@ -13,8 +13,8 @@ class VendorSeeder extends Seeder
      */
     public function run(): void
     {
-        Vendor::create(['name' => 'RESIK',  'description' => 'Vendor Resik']);
-        Vendor::create(['name' => 'NSA',  'description' => 'Vendor NSA']);
-        Vendor::create(['name' => 'TAG',  'description' => 'Vendor TAG']);
+        Vendor::create(['name' => 'RESIK',  'description' => 'PT. RESIK CEMERLANG']);
+        Vendor::create(['name' => 'NSA',  'description' => 'PT. NUSANTARA SATRIA AGUNG']);
+        Vendor::create(['name' => 'TAG',  'description' => 'PT. TUNAS ARTHA GARDATAMA SEKURITI']);
     }
 }

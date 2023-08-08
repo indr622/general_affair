@@ -22,8 +22,18 @@ class UpdateRegionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:regions,name,' . $this->region->id,
-            'code' => 'required|string|max:6|unique:regions,code,' . $this->region->id,
+            'name' => 'required|string|max:255 ',
+            'code' => 'required|string|max:6 ',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama Region tidak boleh kosong',
+            'name.max' => 'Nama Region tidak boleh lebih dari 255 karakter',
+            'code.required' => 'Kode Region tidak boleh kosong',
+            'code.max' => 'Kode Region tidak boleh lebih dari 6 karakter',
         ];
     }
 }

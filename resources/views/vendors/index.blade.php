@@ -8,7 +8,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('vendorss.create') }}" class="btn btn-primary btn-sm">Tambah vendor<i
+                    <a href="{{ route('penyedia.create') }}" class="btn btn-primary btn-sm">Tambah vendor<i
                             class="fas fa-plus"></i></a>
                 </div>
                 <div class="card-body">
@@ -31,7 +31,7 @@
                                         </td>
 
                                         <td class="text-center">
-                                            <a href="{{ route('vendorss.edit', $value->id) }}"
+                                            <a href="{{ route('penyedia.edit', $value->id) }}"
                                                 class="btn btn-sm btn-warning" title="EDIT"><i
                                                     class="fas fa-edit"></i></a>
                                         </td>

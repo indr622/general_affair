@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BranchController;
-use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -22,8 +21,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('users', UserController::class);
 
         Route::resource('regions', RegionController::class);
-        Route::resource('vendorss', VendorController::class);
+        Route::resource('penyedia', VendorController::class);
         Route::resource('branch', BranchController::class);
-        Route::resource('employee', EmployeeController::class);
+
+        // Route::get('biodata/office-boy', [EmployeeController::class, 'office_boy'])->name('bio.ob');
+        // Route::get('biodata/security', [EmployeeController::class, 'security'])->name('bio.security');
     });
 });

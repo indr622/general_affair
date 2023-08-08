@@ -11,7 +11,7 @@ class UpdateVendorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class UpdateVendorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:15'],
+            'description' => ['required', 'string', 'max:100'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama Vendor tidak boleh kosong',
+            'name.max' => 'Nama Vendor tidak boleh lebih dari 15 karakter',
+            'description.required' => 'Deskripsi tidak boleh kosong',
+            'description.max' => 'Deskripsi tidak boleh lebih dari 100 karakter',
         ];
     }
 }

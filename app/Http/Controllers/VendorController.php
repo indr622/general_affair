@@ -8,60 +8,37 @@ use App\Http\Requests\UpdateVendorRequest;
 
 class VendorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $vendors = Vendor::all();
         return view('vendors.index', compact('vendors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        return view('vendors.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreVendorRequest $request)
     {
-        //
+        Vendor::create($request->validated());
+        return redirect()->route('penyedia.index')->withSuccess('Vendor Berhasil Disimpan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Vendor $vendor)
+    public function edit($id)
     {
-        //
+        $vendors = Vendor::findOrFail($id);
+
+        return view('vendors.edit', compact('vendors'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Vendor $vendor)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateVendorRequest $request, Vendor $vendor)
+    public function update(UpdateVendorRequest $request, $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Vendor $vendor)
-    {
-        //
+        $vendors = Vendor::findOrFail($id);
+        $vendors->update($request->validated());
+        return redirect()->route('penyedia.index')->withSuccess('Vendor Berhasil Diupdate.');
     }
 }

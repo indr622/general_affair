@@ -41,7 +41,9 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end pt-0">
                             <div class="dropdown-header bg-light py-2">
-                                <div class="fw-semibold">{{ Str::upper(Auth::user()->name) }}</div>
+                                <div class="fw-semibold">Nama :{{ Str::upper(Auth::user()->name) }}</div>
+                                <div class="fw-semibold">NIK :{{ Str::upper(Auth::user()->username) }}</div>
+                                <div class="fw-semibold">Email :{{ Str::upper(Auth::user()->email) }}</div>
                             </div>
                             <a class="dropdown-item"href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
