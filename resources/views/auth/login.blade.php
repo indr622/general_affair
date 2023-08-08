@@ -36,7 +36,7 @@
                                         <input class="form-control @error('username') is-invalid @enderror"
                                             type="text" placeholder="Username" name="username">
 
-                                        @error('email')
+                                        @error('username')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-6">
-                                            <button class="btn btn-primary px-4" type="button">Login</button>
+                                            <button class="btn btn-primary px-4" type="submit">Login</button>
                                         </div>
                                     </div>
                                 </form>

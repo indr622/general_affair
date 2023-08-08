@@ -1,80 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name') }} | @yield('title')</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{{ asset('') }}vendors/simplebar/css/simplebar.css">
+    <link rel="stylesheet" href="{{ asset('') }}css/vendors/simplebar.css">
+    <link href="{{ asset('') }}css/style.css" rel="stylesheet">
+    <link href="{{ asset('') }}css/examples.css" rel="stylesheet">
+    <link href="{{ asset('') }}vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/dataTables.bootstrap5.min.css') }}">
+    <script src="{{ asset('datatable/jquery-3.7.0.js') }}"></script>
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <x-sidebar></x-sidebar>
+    <div class="wrapper d-flex flex-column min-vh-100 bg-light">
+        <header class="header header-sticky mb-4">
+            <div class="container-fluid">
+                <button class="header-toggler px-md-0 me-md-3" type="button"
+                    onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
+                    <svg class="icon icon-lg">
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
+                    </svg>
+                </button><a class="header-brand d-md-none" href="#">
+                    <svg width="118" height="46" alt="CoreUI Logo">
+                        <use xlink:href="assets/brand/coreui.svg#full"></use>
+                    </svg></a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+                <ul class="header-nav ms-auto">
+                </ul>
+                <ul class="header-nav ms-3">
+                    <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#"
+                            role="button" aria-haspopup="true" aria-expanded="false">
+                            <div class="avatar avatar-md"> <img class="avatar-img" src="{{ asset('images/user.png') }}"
+                                    alt="user@email.com"></div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end pt-0">
+                            <div class="dropdown-header bg-light py-2">
+                                <div class="fw-semibold">{{ Str::upper(Auth::user()->name) }}</div>
+                            </div>
+                            <a class="dropdown-item"href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <svg class="icon me-2">
+                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+                                </svg> Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+
+        </header>
+        <div class="body flex-grow-1 px-3">
+            <div class="container-lg">
+                @yield('content')
+            </div>
+        </div>
+        <x-footer />
     </div>
+    @include('sweetalert::alert')
+    <script src="{{ asset('') }}vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="{{ asset('') }}vendors/simplebar/js/simplebar.min.js"></script>
+    <script src="{{ asset('') }}vendors/chart.js/js/chart.min.js"></script>
+    <script src="{{ asset('') }}vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
+    <script src="{{ asset('') }}vendors/@coreui/utils/js/coreui-utils.js"></script>
+    <script src="{{ asset('') }}js/main.js"></script>
+    <script src="{{ asset('datatable/query.dataTables.min.js') }}"></script>
+    <script src="{{ asset('datatable/dataTables.bootstrap5.min.js') }}"></script>
+    <script>
+        new DataTable('#data');
+    </script>
 </body>
+
 </html>
