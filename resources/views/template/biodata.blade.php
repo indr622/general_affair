@@ -30,9 +30,6 @@
         </tr>
     </thead>
     <tbody>
-
-
-
         @forelse ($employee as $item => $value)
             <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -42,7 +39,7 @@
                 <td>{{ $value->tgl_masuk }}</td>
                 <td>{{ $value->tgl_keluar ?? '-' }}</td>
                 <td>{{ $value->name }}</td>
-                <td>OB</td>
+                <td>{{ $type == 1 ? 'OB' : 'SECURITY' }}</td>
                 <td>{{ $value->nik }}</td>
                 <td>{{ $value->tgl_lahir }}</td>
                 <td>{{ $value->jenis_kelamin }}</td>

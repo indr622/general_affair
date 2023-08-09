@@ -19,7 +19,7 @@
             <div class="card mb-4 text-white bg-warning">
                 <div class="card-body pb-0 d-flex justify-content-between align-items-start">
                     <div>
-                        <div class="fs-4 fw-semibold">1</div>
+                        <div class="fs-4 fw-semibold">{{ \App\Models\Employee::count() }}</div>
                         <div>Total Karyawan</div>
                     </div>
                 </div>

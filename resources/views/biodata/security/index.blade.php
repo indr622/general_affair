@@ -1,15 +1,90 @@
 @extends('layouts.app')
 
-@section('title', 'Data Employee (Security)')
-@section('content')
 
+@section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-2">
                 <div class="card-header">
-                    <a href="" class="btn btn-primary btn-sm">Tambah Securit <i class="fas fa-plus"></i></a>
-                    <a href="" class="btn btn-success btn-sm">Upload <i class="fas fa-upload"></i></a>
-                    <a href="" class="btn btn-success btn-sm">Download <i class="fas fa-download"></i></a>
+                    <button type="button" class="btn btn-primary btn-sm" data-coreui-toggle="modal"
+                        data-coreui-target="#uploadModal">
+                        Upload <i class="fas fa-upload"></i>
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm" data-coreui-toggle="modal"
+                        data-coreui-target="#downloadModal">
+                        Download <i class="fas fa-download"></i>
+                    </button>
+
+                    {{-- Upload Modal --}}
+                    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="uploadModalLabel">Upload Security Data</h5>
+                                    <button type="button" class="btn-close" data-coreui-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('bio.upload') }}" method="POST" enctype="multipart/form-data">
+                                    <div class="modal-body">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="">File</label>
+                                            <input type="file" name="file_employee" required class="form-control">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                data-coreui-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary btn-sm">Upload <i
+                                                    class="fas fa-upload"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="downloadModal" tabindex="-1" aria-labelledby="downloadModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="downloadModalLabel">Download Security Data</h5>
+                                    <button type="button" class="btn-close" data-coreui-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('bio.download') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="type" value="2">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="">Nama Vendor</label>
+                                            <select name="vendor_id" class="form-control">
+                                                @foreach ($vendor as $item => $value)
+                                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="">Region</label>
+                                            <select name="region_id" class="form-control">
+                                                @foreach ($region as $item => $value)
+                                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary  btn-sm"
+                                            data-coreui-dismiss="modal">Close</button>
+                                        <button type="submit" id="download" class="btn btn-success btn-sm">Download <i
+                                                class="fas fa-download"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -23,7 +98,7 @@
                                 <th>Tanggal Masuk / Keluar</th>
                                 <th>Vendor</th>
                                 <th>Branch</th>
-                                <th>AKSI</th>
+                                <th>Region</th>
                             </thead>
                             <tbody>
                                 @foreach ($employee as $data => $value)
@@ -36,18 +111,7 @@
                                         <td>{{ $value->tgl_masuk . ' / ' . $value->tgl_keluar ?? '-' }}</td>
                                         <td>{{ $value->vendor->name }}</td>
                                         <td>{{ $value->branch->name }}</td>
-                                        <td class="text-center">
-                                            <a href="{{ route('bio.edit', $value->id) }}" class="btn btn-sm btn-warning"
-                                                title="EDIT"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('bio.destroy', $value->id) }}" class='ml-1 delete-form'
-                                                method='POST'>
-                                                @csrf
-                                                <input type="hidden" name="_method" value="delete">
-                                                <button class="btn btn-danger btn-sm text-white"> <i
-                                                        class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <td>{{ $value->branch->region->name }}</td>
                                     </tr>
                                 @endforeach
 

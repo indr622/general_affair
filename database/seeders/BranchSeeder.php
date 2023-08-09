@@ -26,5 +26,8 @@ class BranchSeeder extends Seeder
         Branch::create(['name' => 'Kantor Sentra SND Jabar', 'code' => '0200', 'description' => 'Sentra SND', 'region_id' => 3]);
         Branch::create(['name' => 'Bandung 5 -  Majalaya', 'code' => '0226', 'description' => 'Satelite', 'region_id' => 3]);
         Branch::create(['name' => 'Warehouse Tasikmalaya', 'code' => '9B26', 'description' => 'Warehouse', 'region_id' => 3]);
+
+        //JATIM
+        Branch::create(['name' => 'Kantor Sentra SND Jatim', 'code' => '0300', 'description' => 'Sentra SND', 'region_id' => 4]);
     }
 }

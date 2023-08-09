@@ -27,7 +27,7 @@ class Biodata implements FromView
     public function view(): View
     {
         $collection = Employee::with('branch', 'vendor', 'branch.region')
-            ->where('jabatan', 'ob')
+            ->where('jabatan', $this->type == '1' ? 'ob' : 'security')
             ->where('vendor_id', $this->vendor->id);
 
         $employee = $collection->whereHas('branch', function ($query) {
