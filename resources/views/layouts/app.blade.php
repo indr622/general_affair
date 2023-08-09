@@ -13,6 +13,7 @@
     <link href="{{ asset('') }}vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('datatable/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatable/responsive.bootstrap5.min.css') }}">
     <script src="{{ asset('datatable/jquery-3.7.0.js') }}"></script>
 </head>
 
@@ -78,8 +79,12 @@
     <script src="{{ asset('') }}js/main.js"></script>
     <script src="{{ asset('datatable/query.dataTables.min.js') }}"></script>
     <script src="{{ asset('datatable/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('datatable/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('datatable/responsive.bootstrap5.min.js') }}"></script>
     <script>
-        new DataTable('#data');
+        new DataTable('#data', {
+            responsive: true
+        });
     </script>
 </body>
 

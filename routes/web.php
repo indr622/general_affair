@@ -5,6 +5,7 @@ use App\Http\Controllers\BranchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
@@ -29,5 +30,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('biodata/security', [BiodataController::class, 'security'])->name('bio.security');
         Route::post('biodata/download', [BiodataController::class, 'download'])->name('bio.download');
         Route::post('biodata/upload', [BiodataController::class, 'upload'])->name('bio.upload');
+
+
+        Route::get('payroll/office-boy', [PayrollController::class, 'office_boy'])->name('payroll.ob');
+        Route::get('payroll/security', [PayrollController::class, 'security'])->name('payroll.security');
+        Route::post('payroll/download', [PayrollController::class, 'download'])->name('payroll.download');
+        Route::post('payroll/upload', [PayrollController::class, 'upload'])->name('payroll.upload');
     });
 });

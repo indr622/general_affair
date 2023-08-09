@@ -62,11 +62,12 @@
                  </i> Payroll</a>
              <ul class="nav-group-items" style="height: auto;">
                  <li class="nav-item">
-                     <a class="nav-link text-black" href="buttons/button-group.html"><span class="nav-icon"></span>
+                     <a class="nav-link text-black" href="{{ route('payroll.ob') }}"><span class="nav-icon"></span>
                          Office Boy</a>
                  </li>
                  <li class="nav-item">
-                     <a class="nav-link text-black" href="buttons/button-group.html"><span class="nav-icon"></span>
+                     <a class="nav-link text-black" href="{{ route('payroll.security') }}"><span
+                             class="nav-icon"></span>
                          Security</a>
                  </li>
 

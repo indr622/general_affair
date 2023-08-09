@@ -2,70 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\Region;
 use App\Models\Vendor;
-use App\Exports\Biodata;
+use App\Models\Payroll;
 use App\Models\Employee;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Imports\PayrollImport;
 use Illuminate\Support\Carbon;
-use App\Imports\EmployeeImport;
-use App\Models\Branch;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Payroll as ExportsPayroll;
+use App\Http\Requests\StorePayrollRequest;
+use App\Http\Requests\UpdatePayrollRequest;
 
-class BiodataController extends Controller
+class PayrollController extends Controller
 {
     public function office_boy()
     {
-
         $vendor = Vendor::all();
         $region = Region::all();
-        $employee = Employee::with('branch', 'vendor', 'branch.region')
-            ->where('jabatan', 'ob')->get();
 
-        return view('biodata.ob.index', compact('employee', 'vendor', 'region'));
+        $currentYear = Carbon::now()->year;
+        for ($month = 1; $month <= 12; $month++) {
+            $date = Carbon::create($currentYear, $month, 1);
+            $bulan[] = $date->format('F') . ' ' . $date->format('Y');
+        }
+        return view('payroll.ob.index', compact('vendor', 'region', 'bulan'));
     }
 
     public function security()
     {
-        $vendor = Vendor::all();
-        $region = Region::all();
-        $employee = Employee::with('branch', 'vendor', 'branch.region')
-            ->where('jabatan', 'security')->get();
-
-        return view('biodata.security.index', compact('employee', 'vendor', 'region'));
-    }
-
-    public function download(Request $request)
-    {
-        $vendor = Vendor::findOrFail($request->vendor_id);
-        $region = Region::findOrFail($request->region_id);
-        $type = $request->type;
-        $name_file = $type == '1' ? 'OB' : 'Security';
-
-        if (!$vendor || !$region) {
-            return redirect()->back()->withError('Data tidak ditemukan');
-        }
-        return Excel::download(new Biodata($type, $region, $vendor), $vendor->name . ' -  ' . $name_file . ' ' . Str::ucfirst($region->name)  . " " . date('Y') . '.xlsx');
+        return view('payroll.security.index');
     }
 
     public function upload(Request $request)
     {
-        $data = Excel::toArray(new EmployeeImport, $request->file('file_employee'));
+        $data = Excel::toArray(new PayrollImport, $request->file('file_payroll'));
         $sheetData = $data[0];
 
-        $employe = [];
+        $payroll = [];
         foreach ($sheetData as $row) {
             $value = collect($row)->filter(function ($item) {
                 return $item;
             })->toArray();
 
-            array_push($employe, $value);
+            array_push($payroll, $value);
         }
 
-        $vendor = Vendor::where('description', 'like', '%' . $employe[1][0] . '%')->first();
-        $slicedArray = array_slice($employe, 6);
+        dd($payroll);
+
+
+
 
         DB::beginTransaction();
         try {
@@ -98,5 +87,19 @@ class BiodataController extends Controller
             return redirect()
                 ->back()->withError('Data gagal diupload perikasa kembali data anda' . $e->getMessage());
         }
+    }
+
+    public function download(Request $request)
+    {
+        $vendor = Vendor::findOrFail($request->vendor_id);
+        $region = Region::findOrFail($request->region_id);
+        $periode = $request->periode;
+        $type = $request->type;
+        $name_file = $type == '1' ? 'OB' : 'Security';
+
+        if (!$vendor || !$region) {
+            return redirect()->back()->withError('Data tidak ditemukan');
+        }
+        return Excel::download(new ExportsPayroll($type, $region, $vendor, $periode),  $vendor->name . ' -  ' . $name_file . ' ' . Str::ucfirst($region->name)  . " " . $periode . ' payroll.xlsx');
     }
 }
