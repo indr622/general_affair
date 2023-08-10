@@ -76,7 +76,7 @@
 
          <li class="nav-title text-black">Report</li>
          <li class="nav-item">
-             <a class="nav-link text-black" href="{{ route('users.index') }}">
+             <a class="nav-link text-black" href="{{ route('report.index') }}">
                  <i class="nav-icon text-black fas fa-print">
                  </i> Report</a>
          </li>

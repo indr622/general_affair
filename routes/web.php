@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 
@@ -36,5 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('payroll/security', [PayrollController::class, 'security'])->name('payroll.security');
         Route::post('payroll/download', [PayrollController::class, 'download'])->name('payroll.download');
         Route::post('payroll/upload', [PayrollController::class, 'upload'])->name('payroll.upload');
+
+        Route::resource('report', ReportController::class);
     });
 });

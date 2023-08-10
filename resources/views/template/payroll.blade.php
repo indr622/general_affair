@@ -1,3 +1,21 @@
+@php
+    $date = Carbon\Carbon::createFromFormat('F Y', $periode);
+    $month = $date->month;
+    $year = $date->year;
+    $formattedDate = sprintf('%02d%02d', $month, $year % 100); // Output: "0123"
+    
+    $payroll = \App\Models\Payroll::with('employee')
+        ->where('periode', $formattedDate)
+        ->join('employees', 'employees.id', '=', 'payrolls.employee_id')
+        ->join('branches', 'branches.id', '=', 'employees.branch_id')
+        ->join('regions', 'regions.id', '=', 'branches.region_id')
+        ->join('vendors', 'vendors.id', '=', 'employees.vendor_id')
+        ->where('employees.jabatan', $type == 1 ? 'ob' : 'security')
+        ->where('regions.id', $region->id)
+        ->where('vendors.id', $vendor->id)
+        ->get();
+@endphp
+
 <table border="1">
     <thead>
         <tr></tr>
@@ -36,9 +54,32 @@
             <th><b>REGIONAL NAME</b></th>
             <th><b>INVOICE PERIODE</b></th>
             <th><b>NAMA VENDOR</b></th>
-
         </tr>
     </thead>
     <tbody>
+        @foreach ($payroll as $item => $value)
+            <tr style="border: #020202">
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $value->employee->branch->name }}</td>
+                <td>{{ $value->employee->branch->code }}</td>
+                <td>{{ $value->employee->branch->description }}</td>
+                <td>{{ $value->employee->tgl_masuk }}</td>
+                <td>{{ $value->employee->tgl_keluar ?? '-' }}</td>
+                <td>{{ $value->gapok }}</td>
+                <td>{{ $value->bpjs_ketegakerjaan }}</td>
+                <td>{{ $value->bpjs_kesehatan }}</td>
+                <td>{{ $value->bpjs_pensiun }}</td>
+                <td>{{ $value->total }}</td>
+                <td>{{ $value->employee->name }}</td>
+                <td>{{ $value->employee->jabatan == 'ob' ? 'OB' : 'SECURITY' }}</td>
+                <td>{{ $value->employee->nik }}</td>
+                <td>{{ $value->employee->tgl_lahir }}</td>
+                <td>{{ $value->employee->jenis_kelamin }}</td>
+                <td>{{ $region->code }}</td>
+                <td>{{ $region->name }}</td>
+                <td>{{ $value->periode }}</td>
+                <td>{{ $value->employee->vendor->name }}</td>
+            </tr>
+        @endforeach
     </tbody>
 </table>

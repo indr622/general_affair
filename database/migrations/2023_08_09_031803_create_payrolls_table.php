@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('bpjs_kesehatan', 50)->nullable();
             $table->string('bpjs_pensiun', 50)->nullable();
             $table->string('total', 50)->nullable();
-            $table->integer('periode');
+            $table->string('periode');
             $table->timestamps();
         });
     }

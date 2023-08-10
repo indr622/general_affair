@@ -14,7 +14,7 @@ class Payroll implements FromView
     protected $periode;
 
 
-    public function __construct($type, $region, $vendor,    $periode)
+    public function __construct($type, $region, $vendor, $periode)
     {
         $this->region = $region;
         $this->vendor = $vendor;
@@ -24,11 +24,12 @@ class Payroll implements FromView
 
     public function view(): View
     {
+
         return view('template.payroll', [
             'region' => $this->region,
             'vendor' => $this->vendor,
             'type' => $this->type,
-            'periode' => $this->periode
+            'periode' => $this->periode,
         ]);
     }
 }

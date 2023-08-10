@@ -29,12 +29,36 @@ class PayrollController extends Controller
             $date = Carbon::create($currentYear, $month, 1);
             $bulan[] = $date->format('F') . ' ' . $date->format('Y');
         }
-        return view('payroll.ob.index', compact('vendor', 'region', 'bulan'));
+
+        $payroll = Payroll::with(['employee' => function ($q) {
+            return $q->where('jabatan', 'ob');
+        }])
+            ->join('employees', 'employees.id', '=', 'payrolls.employee_id')
+            ->where('employees.jabatan', 'ob')
+            ->get();
+
+        return view('payroll.ob.index', compact('vendor', 'region', 'bulan', 'payroll'));
     }
 
     public function security()
     {
-        return view('payroll.security.index');
+        $vendor = Vendor::all();
+        $region = Region::all();
+
+        $currentYear = Carbon::now()->year;
+        for ($month = 1; $month <= 12; $month++) {
+            $date = Carbon::create($currentYear, $month, 1);
+            $bulan[] = $date->format('F') . ' ' . $date->format('Y');
+        }
+
+        $payroll = Payroll::with(['employee' => function ($q) {
+            return $q->where('jabatan', 'security');
+        }])
+            ->join('employees', 'employees.id', '=', 'payrolls.employee_id')
+            ->where('employees.jabatan', 'security')
+            ->get();
+
+        return view('payroll.security.index', compact('vendor', 'region', 'bulan', 'payroll'));
     }
 
     public function upload(Request $request)
@@ -50,32 +74,24 @@ class PayrollController extends Controller
 
             array_push($payroll, $value);
         }
-
-        dd($payroll);
-
-
-
-
+        $slicedArray = array_slice($payroll, 7);
         DB::beginTransaction();
         try {
             foreach ($slicedArray as $key => $value) {
-
-                $branch = Branch::where('code', $value[2])->first();
-                Employee::updateOrCreate(
+                $employee = Employee::where('nik', $value[13])->first();
+                Payroll::updateOrCreate(
                     [
-                        'nik' => $value[8]
+                        'employee_id' => $employee->id,
+                        'periode' => $value[18]
                     ],
                     [
-                        'branch_id' =>  $branch->id,
-                        'vendor_id' =>  $vendor->id,
-                        'nik' => $value[8],
-                        'name' => Str::upper($value[6]),
-                        'jabatan' => Str::lower($value[7]),
-                        'jenis_kelamin' => Str::upper($value[10]),
-                        'tgl_masuk' => gettype($value[4]) == 'integer' ? Carbon::createFromDate(1900, 1, 1)->addDays($value[4] - 2)->format('Y-m-d') : $value[4],
-                        'tgl_keluar' =>  $value[5] == '-'  ? null : (gettype($value[5])  == 'integer' ? Carbon::createFromDate(1900, 1, 1)->addDays($value[5] - 2)->format('Y-m-d') : $value[5]),
-                        'tgl_lahir' =>  gettype($value[9]) == 'integer' ? Carbon::createFromDate(1900, 1, 1)->addDays($value[9] - 2)->format('Y-m-d') : $value[4],
-
+                        'employee_id' => $employee->id,
+                        'gapok' =>  $value[6],
+                        'bpjs_ketegakerjaan' =>  $value[7],
+                        'bpjs_kesehatan' => $value[8],
+                        'bpjs_pensiun' => $value[9],
+                        'total' => $value[10],
+                        'periode' => $value[18],
                     ]
                 );
             }
@@ -85,12 +101,13 @@ class PayrollController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()
-                ->back()->withError('Data gagal diupload perikasa kembali data anda' . $e->getMessage());
+                ->back()->withError('Data gagal diupload perikasa kembali data anda ' . $e->getMessage());
         }
     }
 
     public function download(Request $request)
     {
+
         $vendor = Vendor::findOrFail($request->vendor_id);
         $region = Region::findOrFail($request->region_id);
         $periode = $request->periode;

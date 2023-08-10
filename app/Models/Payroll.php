@@ -15,4 +15,11 @@ class Payroll extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
+    public function scopeGroupByYear($query)
+    {
+        return $query->selectRaw('YEAR(updated_at) as year')
+            ->groupBy('year')
+            ->orderBy('year', 'desc');
+    }
 }

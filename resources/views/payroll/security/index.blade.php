@@ -53,7 +53,7 @@
                                 </div>
                                 <form action="{{ route('payroll.download') }}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="type" value="1">
+                                    <input type="hidden" name="type" value="2">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="">Nama Vendor</label>

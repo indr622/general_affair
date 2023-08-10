@@ -6,8 +6,8 @@
             <div class="card mb-4 text-white bg-primary">
                 <div class="card-body pb-0 d-flex justify-content-between align-items-start">
                     <div>
-                        <div class="fs-4 fw-semibold">1000000</div>
-                        <div>Total Plus PPN</div>
+                        <div class="fs-4 fw-semibold">{{ number_format(App\Models\Payroll::sum('total'), 2) }}</div>
+                        <div>Total Pembayaran</div>
                     </div>
                 </div>
                 <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
@@ -67,6 +67,12 @@
                     <canvas class="chart" id="card-chart4" height="70"></canvas>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+
         </div>
     </div>
 @endsection
